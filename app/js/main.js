@@ -1,12 +1,24 @@
+import {HSL} from "./hsl";
+
 const $window = $(window);
 const $document = $(document);
 let windowHeight = $window.height();
 let windowWidth = $window.width();
 const $containers = $('.container');
 const random = new Random(Random.engines.mt19937().autoSeed());
-const colors = ['#e51d3a', '#f58f23', '#f4ec25', '#57ad48', '#1d60ae', '#5b429d'];
+const colors = [
+    new HSL(351, 51, 51), //#e51d3a
+    new HSL(31, 91, 55), //#f58f23
+    new HSL(58, 90, 55), //#f4ec25
+    new HSL(111, 41, 48), //#57ad48
+    new HSL(212, 71, 40), //#1d60ae
+    new HSL(256, 41, 44)  //#5b429d
+  ];
 
-function generateRect(){
+
+console.log();
+
+function generateRect(containerIndex){
   let $rect = $('<div></div>');
   let size = random.integer(50, 150);
   let x = random.integer(-windowWidth, windowWidth);
@@ -18,11 +30,15 @@ function generateRect(){
   $rect.data('pixels-to-travel-vertical', pixelToTravelVertical);
   $rect.data('pixels-to-travel-horizontal', pixelToTravelHorizontal);
 
+  containerIndex
+
   $rect.css({
     width: size,
     height: size,
     top:y,
-    left: x
+    left: x,
+    background: `hsl(${colors[containerIndex].h},${colors[containerIndex].s + 10}%,${colors[containerIndex].l + 10}%)`,
+    opacity: 0.5
   });
 
   return $rect;
@@ -34,7 +50,7 @@ function init(){
   //add colors
   colors.forEach(function(item, index){
 
-    $($containers[index]).css('background', item);
+    $($containers[index]).css('background', colors[index].toString());
 
   });
 
@@ -43,7 +59,7 @@ function init(){
     let $container = $(item);
 
     for (let i = 0; i < 10; i++) {
-      $container.append(generateRect());
+      $container.append(generateRect(index));
     };
 
   });
