@@ -22,8 +22,7 @@ function generateRect(){
     width: size,
     height: size,
     top:y,
-    left: x,
-    //transform: `translate(${pixelToTravelVertical}px, ${pixelToTravelHorizontal}px)`
+    left: x
   });
 
   return $rect;
@@ -61,32 +60,30 @@ function updateParallax(){
     let offset = $container.offset();
     let $rects;
 
+    let height = $container.height();
+    let percentageinViewPort = Math.max(0, Math.min(100, ((offset.top + height) - scrollPosition) / (windowHeight + height) * 100));
+
+    let halfPercentage = percentageinViewPort - 50;
+    let per = (halfPercentage / 50) * 100;
+
     if(scrollPosition + windowHeight > offset.top &&  offset.top + $container.height() > scrollPosition){
 
       $rects = $container.children('.rect');
 
+      let $canvas = $container.children('.canvas');
+
+      $canvas.css('transform', `translate(0, ${(per / 100) * 400}px)`);
+
       $rects.each(function(index, item){
+
         let $item = $(item);
-        let height = $item.height();
-        let elementPosition = $item.offset();
-        let percentageinViewPort = Math.max(0, Math.min(100, ((elementPosition.top + height) - scrollPosition) / (windowHeight + height) * 100));
-
-        let halfPercentage = percentageinViewPort - 50;
-        let per = (halfPercentage / 50) * 100;
-
-        //performance improvement, the rectangles pop out when appears on screen. but it's kinda cool
-        //if(Math.abs(per) < 100){
-          $item.css('transform', `translate(${(per / 100) * parseInt($item.data('pixels-to-travel-horizontal')) }px, ${(per / 100) * parseInt($item.data('pixels-to-travel-vertical')) }px)`);
-        //}
+        $item.css('transform', `translate(${(per / 100) * parseInt($item.data('pixels-to-travel-horizontal')) }px, ${(per / 100) * parseInt($item.data('pixels-to-travel-vertical')) }px)`);
 
       });
 
     }
 
-
   });
-
-
 
 }
 
