@@ -1,10 +1,13 @@
 import {HSL} from "./hsl";
+import {AnimationOne} from "./animation-one";
 
 const $window = $(window);
 const $document = $(document);
 let windowHeight = $window.height();
 let windowWidth = $window.width();
+
 const $containers = $('.container');
+
 const random = new Random(Random.engines.mt19937().autoSeed());
 const colors = [
     new HSL(351, 51, 51), //#e51d3a
@@ -15,8 +18,14 @@ const colors = [
     new HSL(256, 41, 44)  //#5b429d
   ];
 
-
-console.log();
+const canvasAnimations = [
+  new AnimationOne,
+  //new AnimationTwo,
+  //new AnimationThree,
+  //new AnimationFour,
+  //new AnimationFive,
+  //new AnimationSix
+];
 
 function generateRect(containerIndex){
   let $rect = $('<div></div>');
@@ -37,7 +46,7 @@ function generateRect(containerIndex){
     height: size,
     top:y,
     left: x,
-    background: `hsl(${colors[containerIndex].h},${colors[containerIndex].s + 10}%,${colors[containerIndex].l + 10}%)`,
+    background: `hsl(${colors[containerIndex].h},${colors[containerIndex].s + 20}%,${colors[containerIndex].l + 10}%)`,
     opacity: 0.5
   });
 
@@ -83,7 +92,7 @@ function updateParallax(){
     let per = (halfPercentage / 50) * 100;
 
     if(scrollPosition + windowHeight > offset.top &&  offset.top + $container.height() > scrollPosition){
-
+      if(typeof canvasAnimations[index] !== 'undefined') canvasAnimations[index].onScreen = true;
       $rects = $container.children('.rect');
 
       let $canvas = $container.children('.canvas');
@@ -97,6 +106,8 @@ function updateParallax(){
 
       });
 
+    } else {
+      if(typeof canvasAnimations[index] !== 'undefined') canvasAnimations[index].onScreen = false;
     }
 
   });
@@ -104,6 +115,22 @@ function updateParallax(){
 }
 
 $window.on('resize scroll load', updateParallax);
+
+function update(){
+
+  for (let i = 0; i < canvasAnimations.length; i++) {
+    if(canvasAnimations[i].onScreen){
+      canvasAnimations[i].update();
+      canvasAnimations[i].draw();
+    }
+  };
+
+  requestAnimationFrame(update);
+}
+
+requestAnimationFrame(update);
+
+
 
 
 init();

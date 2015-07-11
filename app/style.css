@@ -32,11 +32,6 @@ h1{
   right: 0;
 }
 
-.container-1 canvas{
-  background: #181818;
-
-}
-
 .rect{
   width: 50px;
   height: 50px;
@@ -46,7 +41,6 @@ h1{
 }
 
 canvas{
-  background: #181818;
   z-index: 1;
 }
 
