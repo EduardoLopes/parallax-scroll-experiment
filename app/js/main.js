@@ -4,6 +4,7 @@ import {AnimationTwo} from "./animation-two";
 import {AnimationThree} from "./animation-three";
 import {AnimationFour} from "./animation-four";
 import {AnimationFive} from "./animation-five";
+import {AnimationSix} from "./animation-six";
 
 const $window = $(window);
 const $document = $(document);
@@ -28,7 +29,7 @@ const canvasAnimations = [
   new AnimationThree,
   new AnimationFour,
   new AnimationFive,
-  //new AnimationSix
+  new AnimationSix
 ];
 
 function generateRect(containerIndex){
