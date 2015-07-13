@@ -19,9 +19,10 @@ class RectFour extends Rect{
 
   update(){
 
-    if(this.index % 4 == 0){
-      this.x = (this.animation.center.x) + Math.cos(this.angle) * 300;
-      this.y = (this.animation.center.y) + Math.sin(this.angle) * 300;
+    this.x = (this.animation.center.x) + Math.cos(this.angle) * 300;
+    this.y = (this.animation.center.y) + Math.sin(this.angle) * 300;
+
+    if(this.index % 5 == 0){
 
       this.x = Math.max(0, Math.min(300 - this.size, this.x));
       this.y = Math.max(0, Math.min(300 - this.size, this.y));
@@ -30,14 +31,10 @@ class RectFour extends Rect{
 
     } else {
 
-      this.x = (this.animation.center.x) + Math.cos(this.angle) * 300;
-      this.y = (this.animation.center.y) + Math.sin(this.angle) * 300;
-      let a = 15;
+      this.x = Math.max(30, Math.min((300 - 30) - this.size, this.x));
+      this.y = Math.max(30, Math.min((300 - 30) - this.size, this.y));
 
-      this.x = Math.max(a, Math.min((300 - a) - this.size, this.x));
-      this.y = Math.max(a, Math.min((300 - a) - this.size, this.y));
-
-      this.angle -= 0.001;
+      this.angle -= 0.005;
 
     }
   }

@@ -15,19 +15,14 @@ class RectTwo extends Rect{
     this.angle = this.index * ((Math.PI * 2) / QAUNT);
     this.size = 15;
 
-    if(this.index % 2 == 0){
-      this.size = 15;
-    } else {
-      this.size = 15;
-    }
-
   }
 
   update(){
 
+    this.x = (this.animation.center.x) + Math.cos(this.angle) * 300;
+    this.y = (this.animation.center.y) + Math.sin(this.angle) * 300;
+
     if(this.index % 2 == 0){
-      this.x = (this.animation.center.x) + Math.cos(this.angle) * 300;
-      this.y = (this.animation.center.y) + Math.sin(this.angle) * 300;
 
       this.x = Math.max(0, Math.min(300 - this.size, this.x));
       this.y = Math.max(0, Math.min(300 - this.size, this.y));
@@ -36,13 +31,10 @@ class RectTwo extends Rect{
 
     } else {
 
-      this.x = (this.animation.center.x) + Math.cos(this.angle) * 150;
-      this.y = (this.animation.center.y) + Math.sin(this.angle) * 150;
-
       this.x = Math.max(75, Math.min(225 - this.size, this.x));
       this.y = Math.max(75, Math.min(225 - this.size, this.y));
 
-      this.angle -= 0.02;
+      this.angle -= 0.01;
     }  }
 
   draw(){

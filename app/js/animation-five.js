@@ -24,7 +24,6 @@ class RectFive extends Rect{
 
     if(this.index % 4 == 0){
 
-
       this.x = Math.max(150, Math.min(300 - this.size, this.x));
       this.y = Math.max(150, Math.min(300 - this.size, this.y));
 
