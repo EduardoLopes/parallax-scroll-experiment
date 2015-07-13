@@ -5,6 +5,10 @@ export class Animation{
     this.id = id;
     this.$canvas = $(`.container-${id}`).children('.canvas')[0];
     this.ctx = this.$canvas.getContext('2d');
+    this.center = {
+      x: this.$canvas.width / 2,
+      y: this.$canvas.height / 2
+    }
   }
 
   update(){

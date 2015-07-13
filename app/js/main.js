@@ -1,5 +1,7 @@
 import {HSL} from "./hsl";
 import {AnimationOne} from "./animation-one";
+import {AnimationTwo} from "./animation-two";
+import {AnimationThree} from "./animation-three";
 
 const $window = $(window);
 const $document = $(document);
@@ -20,8 +22,8 @@ const colors = [
 
 const canvasAnimations = [
   new AnimationOne,
-  //new AnimationTwo,
-  //new AnimationThree,
+  new AnimationTwo,
+  new AnimationThree,
   //new AnimationFour,
   //new AnimationFive,
   //new AnimationSix

@@ -1,12 +1,13 @@
 import {Animation} from "./animation";
 import {Rect} from "./rect";
 
-const ID = 0;
+const ID = 2;
 const QAUNT = 20;
 
 const random = new Random(Random.engines.mt19937().autoSeed());
 
-class RectOne extends Rect{
+class RectThree extends Rect{
+
   constructor(index, animation){
     super(0,0,10,10);
 
@@ -28,37 +29,27 @@ class RectOne extends Rect{
     if(this.index % 2 == 0){
       this.angle += 0.01;
     } else {
-      this.angle -= 0.01;
+      this.angle += 0.012;
     }
+
+    this.size += Math.sin(this.angle) * 0.2;
 
 
   }
 
   draw(){
-    //let next = this.animation.objects[this.index + 5];
 
     this.animation.ctx.fillRect(this.x, this.y, this.size, this.size);
 
-/*    if(typeof next != 'undefined'){
-
-      this.animation.ctx.beginPath();
-      this.animation.ctx.lineWidth = 10;
-      this.animation.ctx.moveTo(this.x + (this.size / 2), this.y + (this.size / 2));
-      this.animation.ctx.lineTo(next.x + (next.size / 2), next.y + (next.size / 2));
-      this.animation.ctx.closePath();
-      this.animation.ctx.stroke();
-
-    }
-*/
   }
 }
 
-export class AnimationOne extends Animation{
+export class AnimationThree extends Animation{
   constructor(){
     super(ID);
 
     for (let i = 0; i < QAUNT; i++) {
-      this.objects[i] = new RectOne(i, this);
+      this.objects[i] = new RectThree(i, this);
     };
 
   }
