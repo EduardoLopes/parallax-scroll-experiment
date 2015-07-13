@@ -2,6 +2,7 @@ import {HSL} from "./hsl";
 import {AnimationOne} from "./animation-one";
 import {AnimationTwo} from "./animation-two";
 import {AnimationThree} from "./animation-three";
+import {AnimationFour} from "./animation-four";
 
 const $window = $(window);
 const $document = $(document);
@@ -24,7 +25,7 @@ const canvasAnimations = [
   new AnimationOne,
   new AnimationTwo,
   new AnimationThree,
-  //new AnimationFour,
+  new AnimationFour,
   //new AnimationFive,
   //new AnimationSix
 ];
