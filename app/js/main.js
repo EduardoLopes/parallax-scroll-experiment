@@ -3,6 +3,7 @@ import {AnimationOne} from "./animation-one";
 import {AnimationTwo} from "./animation-two";
 import {AnimationThree} from "./animation-three";
 import {AnimationFour} from "./animation-four";
+import {AnimationFive} from "./animation-five";
 
 const $window = $(window);
 const $document = $(document);
@@ -26,7 +27,7 @@ const canvasAnimations = [
   new AnimationTwo,
   new AnimationThree,
   new AnimationFour,
-  //new AnimationFive,
+  new AnimationFive,
   //new AnimationSix
 ];
 

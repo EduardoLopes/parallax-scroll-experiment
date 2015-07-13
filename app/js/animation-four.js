@@ -15,12 +15,6 @@ class RectFour extends Rect{
     this.angle = this.index * ((Math.PI * 2) / QAUNT);
     this.size = 15;
 
-    if(this.index % 2 == 0){
-      this.size = 15;
-    } else {
-      this.size = 15;
-    }
-
   }
 
   update(){
