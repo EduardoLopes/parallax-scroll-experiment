@@ -35,21 +35,21 @@ class RectSix extends Rect{
       this.x = Math.max(15, Math.min((300 - 15) - this.size, this.x));
       this.y = Math.max(15, Math.min((300 - 15) - this.size, this.y));
 
-      this.angle += 0.01;
+      this.angle += 0.011;
 
     } else if(this.index % 4 == 2){
 
       this.x = Math.max(30, Math.min((300 - 30) - this.size, this.x));
       this.y = Math.max(30, Math.min((300 - 30) - this.size, this.y));
 
-      this.angle += 0.01;
+      this.angle += 0.012;
 
     } else if(this.index % 4 == 3){
 
       this.x = Math.max(45, Math.min((300 - 45) - this.size, this.x));
       this.y = Math.max(45, Math.min((300 - 45) - this.size, this.y));
 
-      this.angle += 0.01;
+      this.angle += 0.013;
 
     }
 
