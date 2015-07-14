@@ -41,9 +41,9 @@ class RectTwo extends Rect{
 
     this.animation.ctx.fillStyle = this.animation.color;
     if(this.index % 2 == 0){
-      this.animation.ctx.fillRect(this.x, this.y, this.size, this.size);
+      this.animation.ctx.fillRect(this.x, this.y + ( this.animation.scrollPosition / 100 ) * (this.parallaxOffsetHorizontal), this.size, this.size);
     } else {
-      this.animation.ctx.fillRect(this.x + (this.size / 4), this.y + (this.size / 4), this.size, this.size);
+      this.animation.ctx.fillRect(this.x + (this.size / 4), this.y + ( this.animation.scrollPosition / 100 ) * (this.parallaxOffsetHorizontal) + (this.size / 4), this.size, this.size);
     }
 
 

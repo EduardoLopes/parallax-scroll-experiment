@@ -8,6 +8,7 @@ export class Animation{
     this.color = `hsl(${COLORS[this.id].h}, ${COLORS[this.id].s + 30}%, ${COLORS[this.id].l + 20}%)`;
     this.$canvas = $(`.container-${id}`).children('.canvas')[0];
     this.ctx = this.$canvas.getContext('2d');
+    this.scrollPosition = 0;
     this.center = {
       x: this.$canvas.width / 2,
       y: this.$canvas.height / 2

@@ -100,7 +100,8 @@ function updateParallax(){
     let per = (halfPercentage / 50) * 100;
 
     if(scrollPosition + windowHeight > offset.top &&  offset.top + $container.height() > scrollPosition){
-      if(typeof canvasAnimations[index] !== 'undefined') canvasAnimations[index].onScreen = true;
+      canvasAnimations[index].onScreen = true;
+      canvasAnimations[index].scrollPosition = per;
       $rects = $container.children('.rect');
 
       let $canvas = $container.children('.canvas');
@@ -115,7 +116,8 @@ function updateParallax(){
       });
 
     } else {
-      if(typeof canvasAnimations[index] !== 'undefined') canvasAnimations[index].onScreen = false;
+      canvasAnimations[index].onScreen = false;
+
     }
 
   });
