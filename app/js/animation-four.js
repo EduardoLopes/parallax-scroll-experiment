@@ -41,7 +41,8 @@ class RectFour extends Rect{
 
   draw(){
 
-      this.animation.ctx.fillRect(this.x, this.y, this.size, this.size);
+    this.animation.ctx.fillStyle = this.animation.color;
+    this.animation.ctx.fillRect(this.x, this.y, this.size, this.size);
 
   }
 }

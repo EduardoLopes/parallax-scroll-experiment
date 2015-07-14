@@ -38,6 +38,8 @@ class RectTwo extends Rect{
     }  }
 
   draw(){
+
+    this.animation.ctx.fillStyle = this.animation.color;
     if(this.index % 2 == 0){
       this.animation.ctx.fillRect(this.x, this.y, this.size, this.size);
     } else {

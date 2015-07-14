@@ -1,4 +1,4 @@
-import {HSL} from "./hsl";
+import {COLORS} from "./colors";
 import {AnimationOne} from "./animation-one";
 import {AnimationTwo} from "./animation-two";
 import {AnimationThree} from "./animation-three";
@@ -14,14 +14,7 @@ let windowWidth = $window.width();
 const $containers = $('.container');
 
 const random = new Random(Random.engines.mt19937().autoSeed());
-const colors = [
-    new HSL(351, 51, 51), //#e51d3a
-    new HSL(31, 91, 55), //#f58f23
-    new HSL(58, 90, 55), //#f4ec25
-    new HSL(111, 41, 48), //#57ad48
-    new HSL(212, 71, 40), //#1d60ae
-    new HSL(256, 41, 44)  //#5b429d
-  ];
+
 
 const canvasAnimations = [
   new AnimationOne,
@@ -51,7 +44,7 @@ function generateRect(containerIndex){
     height: size,
     top:y,
     left: x,
-    background: `hsl(${colors[containerIndex].h},${colors[containerIndex].s + 20}%,${colors[containerIndex].l + 10}%)`,
+    background: `hsl(${COLORS[containerIndex].h},${COLORS[containerIndex].s + 20}%,${COLORS[containerIndex].l + 10}%)`,
     opacity: 0.5
   });
 
@@ -61,20 +54,30 @@ function generateRect(containerIndex){
 
 function init(){
 
-  //add colors
-  colors.forEach(function(item, index){
+  //add COLORS
+  COLORS.forEach(function(item, index){
 
-    $($containers[index]).css('background', colors[index].toString());
+    $($containers[index]).css('background', COLORS[index].toString());
 
   });
 
   $containers.each(function(index, item){
 
     let $container = $(item);
+    let $canvas = $container.children('.canvas');
+
+    $canvas.css({
+      border: `hsl(${COLORS[index].h},${COLORS[index].s + 20}%,${COLORS[index].l + 10}%) solid 10px`,
+      background: `hsl(${COLORS[index].h},${COLORS[index].s - 5}%,${COLORS[index].l - 15}%)`
+    });
+
+
 
     for (let i = 0; i < 10; i++) {
       $container.append(generateRect(index));
     };
+
+
 
   });
 

@@ -14,7 +14,6 @@ class RectOne extends Rect{
     this.animation = animation;
     this.angle = this.index * ((Math.PI * 2) / QAUNT);
     this.size = random.integer(10, 50);
-
   }
 
   update(){
@@ -31,12 +30,11 @@ class RectOne extends Rect{
       this.angle -= 0.01;
     }
 
-
   }
 
   draw(){
     //let next = this.animation.objects[this.index + 5];
-
+    this.animation.ctx.fillStyle = this.animation.color;
     this.animation.ctx.fillRect(this.x, this.y, this.size, this.size);
 
 /*    if(typeof next != 'undefined'){
