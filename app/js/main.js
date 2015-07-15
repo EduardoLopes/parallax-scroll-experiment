@@ -5,13 +5,27 @@ import {AnimationThree} from "./animation-three";
 import {AnimationFour} from "./animation-four";
 import {AnimationFive} from "./animation-five";
 import {AnimationSix} from "./animation-six";
-import TWEEN from "tween.js";
 
 const $window = $(window);
 const $document = $(document);
 let windowHeight = $window.height();
 let windowWidth = $window.width();
 const $containers = $('.container');
+let scrollTo = {scrollTo: $window.scrollTop()};
+
+//scroll tween
+const tween = new TWEEN.Tween( scrollTo )
+        .to( { scrollTo: 0 }, 1000 )
+        .easing( TWEEN.Easing.Quartic.InOut )
+        .onUpdate( function () {
+
+          $window.scrollTop(this.scrollTo);
+
+        } ).onStart(function() {
+
+          this.scrollTo = $window.scrollTop();
+
+        });
 
 const random = new Random(Random.engines.mt19937().autoSeed());
 
@@ -81,16 +95,8 @@ function init(){
 $containers.on('click', function(){
 
   let $this = $(this);
-
-   var tween = new TWEEN.Tween( { scrollTo: $window.scrollTop() } )
-            .to( { scrollTo: $this.offset().top }, 400 )
-            .easing( TWEEN.Easing.Quartic.InOut )
-            .onUpdate( function () {
-
-              $window.scrollTop(this.scrollTo);
-
-            } )
-            .start();
+  tween.to( { scrollTo: $this.offset().top });
+  tween.start();
 
 });
 
@@ -134,6 +140,10 @@ function updateParallax(){
   });
 
 }
+
+$window.on('mousewheel', function(){
+  tween.stop();
+});
 
 $window.on('resize scroll load', updateParallax);
 

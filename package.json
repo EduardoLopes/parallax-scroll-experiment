@@ -2,7 +2,6 @@
   "name": "sketch",
   "version": "0.0.0",
   "dependencies": {
-    "tween.js": "^0.14.0"
   },
   "devDependencies": {
     "babelify": "^6.1.2",
