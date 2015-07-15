@@ -135,7 +135,7 @@ function updateParallax(){
     let $container = $(item);
     let offset = $container.offset();
     let $rects;
-
+    let $canvas = $container.children('.canvas');
     let height = $container.height();
     let percentageinViewPort = Math.max(0, Math.min(100, ((offset.top + height) - scrollPosition) / (windowHeight + height) * 100));
 
@@ -149,11 +149,8 @@ function updateParallax(){
     $next.css('transform', `translate(-50%, ${-(per / 100) * 50 }px) rotate(-90deg)`);
 
     if(scrollPosition + windowHeight > offset.top &&  offset.top + $container.height() > scrollPosition){
-      canvasAnimations[index].onScreen = true;
-      canvasAnimations[index].scrollPosition = per;
-      $rects = $container.children('.rect');
 
-      let $canvas = $container.children('.canvas');
+      $rects = $container.children('.rect');
 
       $canvas.css('transform', `translate(0, ${(per / 100) * 400}px)`);
 
@@ -164,9 +161,13 @@ function updateParallax(){
 
       });
 
+    }
+
+    if(scrollPosition + windowHeight > $canvas.offset().top &&  $canvas.offset().top + $canvas.height() > scrollPosition){
+      canvasAnimations[index].onScreen = true;
+      canvasAnimations[index].scrollPosition = per;
     } else {
       canvasAnimations[index].onScreen = false;
-
     }
 
   });
