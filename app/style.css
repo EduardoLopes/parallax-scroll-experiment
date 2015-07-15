@@ -19,6 +19,25 @@ body{
   position: relative;
 }
 
+.next, .prev{
+  background: #181818;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  color: #181818;
+  line-height: 42px;
+  font-size: 2em;
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0) rotate(-90deg);
+  z-index: 4;
+}
+
+.next{
+  bottom: 0;
+}
+
 h1{
   color: #eee;
 }

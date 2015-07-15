@@ -65,6 +65,26 @@ function generateRect(containerIndex){
 
 }
 
+$('.next').on('click', function(){
+  let $this = $(this);
+
+  tween.stop();
+
+  tween.to( { scrollTo: $this.parent().next().offset().top });
+  tween.start();
+
+});
+
+$('.prev').on('click', function(){
+  let $this = $(this);
+
+  tween.stop();
+
+  tween.to( { scrollTo: $this.parent().prev().offset().top });
+  tween.start();
+
+});
+
 function init(){
 
   //add COLORS
@@ -79,6 +99,10 @@ function init(){
     let $container = $(item);
     let $canvas = $container.children('.canvas');
 
+    $container.children('.prev, .next').css({
+      background: `hsl(${COLORS[index].h},${COLORS[index].s + 20}%,${COLORS[index].l + 15}%)`
+    });
+
     $canvas.css({
       border: `hsl(${COLORS[index].h},${COLORS[index].s + 20}%,${COLORS[index].l + 10}%) solid 10px`,
       background: `hsl(${COLORS[index].h},${COLORS[index].s - 5}%,${COLORS[index].l - 15}%)`
@@ -92,10 +116,12 @@ function init(){
 
 }
 
-$containers.on('click', function(){
+$('.canvas').on('click', function(){
 
   let $this = $(this);
-  tween.to( { scrollTo: $this.offset().top });
+  tween.stop();
+
+  tween.to( { scrollTo: $this.parent().offset().top });
   tween.start();
 
 });
@@ -115,6 +141,12 @@ function updateParallax(){
 
     let halfPercentage = percentageinViewPort - 50;
     let per = (halfPercentage / 50) * 100;
+
+    let $prev = $container.children('.prev');
+    let $next = $container.children('.next');
+
+    $prev.css('transform', `translate(-50%, ${-(per / 100) * 50 }px) rotate(-90deg)`);
+    $next.css('transform', `translate(-50%, ${-(per / 100) * 50 }px) rotate(-90deg)`);
 
     if(scrollPosition + windowHeight > offset.top &&  offset.top + $container.height() > scrollPosition){
       canvasAnimations[index].onScreen = true;
