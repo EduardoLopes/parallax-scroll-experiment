@@ -5,16 +5,15 @@ import {AnimationThree} from "./animation-three";
 import {AnimationFour} from "./animation-four";
 import {AnimationFive} from "./animation-five";
 import {AnimationSix} from "./animation-six";
+import TWEEN from "tween.js";
 
 const $window = $(window);
 const $document = $(document);
 let windowHeight = $window.height();
 let windowWidth = $window.width();
-
 const $containers = $('.container');
 
 const random = new Random(Random.engines.mt19937().autoSeed());
-
 
 const canvasAnimations = [
   new AnimationOne,
@@ -71,17 +70,29 @@ function init(){
       background: `hsl(${COLORS[index].h},${COLORS[index].s - 5}%,${COLORS[index].l - 15}%)`
     });
 
-
-
     for (let i = 0; i < 10; i++) {
       $container.append(generateRect(index));
     };
 
-
-
   });
 
 }
+
+$containers.on('click', function(){
+
+  let $this = $(this);
+
+   var tween = new TWEEN.Tween( { scrollTo: $window.scrollTop() } )
+            .to( { scrollTo: $this.offset().top }, 400 )
+            .easing( TWEEN.Easing.Quartic.InOut )
+            .onUpdate( function () {
+
+              $window.scrollTop(this.scrollTo);
+
+            } )
+            .start();
+
+});
 
 function updateParallax(){
 
@@ -134,6 +145,8 @@ function update(){
       canvasAnimations[i].draw();
     }
   };
+
+  TWEEN.update();
 
   requestAnimationFrame(update);
 }
