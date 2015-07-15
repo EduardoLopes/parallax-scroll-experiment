@@ -46,7 +46,7 @@ class RectSix extends Rect{
       this.animation.ctx.beginPath();
       this.animation.ctx.lineWidth = 15;
       this.animation.ctx.moveTo(this.x + (this.size / 2), (this.y + ( this.animation.scrollPosition / 100 ) * (this.parallaxOffsetHorizontal)) + (this.size / 2));
-      this.animation.ctx.lineTo(next.x + (next.size / 2), (next.y + ( this.animation.scrollPosition / 100 ) * (this.parallaxOffsetHorizontal)) + (next.size / 2));
+      this.animation.ctx.lineTo(next.x + (next.size / 2), (next.y + ( this.animation.scrollPosition / 100 ) * (next.parallaxOffsetHorizontal)) + (next.size / 2));
       this.animation.ctx.closePath();
       this.animation.ctx.stroke();
 
