@@ -161,7 +161,10 @@ function updateParallax(){
       $rects.each(function(index, item){
 
         $item = $(item);
-        $item.css('transform', `translate(${floatPercentage * parseInt($item.data('pixels-to-travel-horizontal')) }px, ${floatPercentage * parseInt($item.data('pixels-to-travel-vertical')) }px)`);
+
+        if(scrollPosition + windowHeight > $item.offset().top &&  $item.offset().top + $item.height() > scrollPosition){
+          $item.css('transform', `translate(${floatPercentage * parseInt($item.data('pixels-to-travel-horizontal')) }px, ${floatPercentage * parseInt($item.data('pixels-to-travel-vertical')) }px)`);
+        }
 
       });
 
