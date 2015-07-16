@@ -1,5 +1,4 @@
 const gulp = require('gulp');
-const babel = require("gulp-babel");
 const del = require('del');
 const budo = require('budo');
 const babelify = require('babelify');
@@ -7,6 +6,30 @@ const errorify = require('errorify');
 const garnish = require('garnish');
 const rename = require("gulp-rename");
 const ghPages = require('gulp-gh-pages');
+const browserify = require('browserify');
+const source = require('vinyl-source-stream');
+const buffer = require('vinyl-buffer');
+const gutil = require('gulp-util');
+const uglify = require('gulp-uglify');
+const sourcemaps = require('gulp-sourcemaps');
+
+gulp.task('javascript', function () {
+  var b = browserify({
+    entries: './app/js/main.js',
+    debug: true,
+    transform: [babelify]
+  });
+
+  return b.bundle()
+    .pipe(source('bundle.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true}))
+        // Add transformation tasks to the pipeline here.
+        .pipe(uglify())
+        .on('error', gutil.log)
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest('./dist/'));
+});
 
 gulp.task('deploy', ['default'], function() {
   return gulp.src('./dist/**/*')
@@ -58,19 +81,10 @@ gulp.task('copy', ['del', 'copy-vendor'], function() {
 gulp.task('copy-vendor', ['del'], function() {
 
   return gulp.src([
-    'app/js/vendor/*',
+    'js/vendor/*',
     ], { cwd: 'app' })
-    .pipe(gulp.dest("dist/js/vendor"));
+    .pipe(gulp.dest("./dist/js/vendor"));
 
 });
 
-gulp.task("babel", ['del'],function () {
-
-  return gulp.src("app/js/main.js")
-    .pipe(babel())
-    .pipe(rename("bundle.js"))
-    .pipe(gulp.dest("dist"));
-
-});
-
-gulp.task('default', ['babel', 'copy'])
+gulp.task('default', ['javascript', 'copy'])
