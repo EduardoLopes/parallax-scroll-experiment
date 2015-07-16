@@ -1,14 +1,14 @@
-const random = new Random(Random.engines.mt19937().autoSeed());
+import {random} from "./random";
 
 export class Rect{
-  constructor(x, y, w, h){
+  constructor(x, y, size){
+
     this.x = x;
     this.y = y;
-    this.w = w;
-    this.h = h;
-
-
+    this.size = size;
+    this.angle = 0;
     this.parallaxOffsetHorizontal = random.integer(200, 600);
     this.parallaxOffsetVertical = random.integer(200, 600);
+
   }
 }

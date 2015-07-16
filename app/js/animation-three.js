@@ -4,19 +4,14 @@ import {Rect} from "./rect";
 const ID = 2;
 const QAUNT = 20;
 
-const random = new Random(Random.engines.mt19937().autoSeed());
-
 class RectThree extends Rect{
 
   constructor(index, animation){
-    super(0,0,10,10);
+    super(0, 0, index * ((215) / QAUNT) /* size */);
 
     this.index = index;
     this.animation = animation;
     this.angle = this.index * ((Math.PI * 2) / QAUNT);
-
-    this.size = this.index * ((215) / QAUNT);
-
     this.x = (this.animation.$canvas.width / 2) - (this.size / 2);
     this.y = (this.animation.$canvas.height / 2) - (this.size / 2);
 
@@ -60,19 +55,7 @@ class RectThree extends Rect{
 
 export class AnimationThree extends Animation{
   constructor(){
-    super(ID);
-
-    for (let i = 0; i < QAUNT; i++) {
-      this.objects[i] = new RectThree(i, this);
-    };
-
-  }
-
-  draw(){
-    this.ctx.clearRect(0, 0, this.$canvas.width,  this.$canvas.height);
-    //draw all the rectangles
-
-    super.draw();
-
+    super(ID, RectThree, QAUNT);
   }
 }
+

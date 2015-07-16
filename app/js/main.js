@@ -5,14 +5,11 @@ import {AnimationThree} from "./animation-three";
 import {AnimationFour} from "./animation-four";
 import {AnimationFive} from "./animation-five";
 import {AnimationSix} from "./animation-six";
+import {random} from "./random";
 
 const $window = $(window);
 const $document = $(document);
-let windowHeight = $window.height();
-let windowWidth = $window.width();
 const $containers = $('.container');
-let scrollTo = {scrollTo: $window.scrollTop()};
-
 //scroll tween
 const tween = new TWEEN.Tween( scrollTo )
         .to( { scrollTo: 0 }, 1000 )
@@ -27,8 +24,6 @@ const tween = new TWEEN.Tween( scrollTo )
 
         });
 
-const random = new Random(Random.engines.mt19937().autoSeed());
-
 const canvasAnimations = [
   new AnimationOne,
   new AnimationTwo,
@@ -37,6 +32,9 @@ const canvasAnimations = [
   new AnimationFive,
   new AnimationSix
 ];
+
+let windowHeight = $window.height();
+let windowWidth = $window.width();
 
 function generateRect(containerIndex){
   let $rect = $('<div></div>');
@@ -50,44 +48,49 @@ function generateRect(containerIndex){
   $rect.data('pixels-to-travel-vertical', pixelToTravelVertical);
   $rect.data('pixels-to-travel-horizontal', pixelToTravelHorizontal);
 
-  containerIndex
-
   $rect.css({
     width: size,
     height: size,
-    top:y,
+    top: y,
     left: x,
     background: `hsl(${COLORS[containerIndex].h},${COLORS[containerIndex].s + 20}%,${COLORS[containerIndex].l + 10}%)`,
     opacity: 0.5
   });
 
   return $rect;
+}
 
+function scrollTo(coord){
+  tween.stop();
+  tween.to( { scrollTo: coord });
+  tween.start();
 }
 
 $('.next').on('click', function(){
   let $this = $(this);
-
-  tween.stop();
-
-  tween.to( { scrollTo: $this.parent().next().offset().top });
-  tween.start();
-
+  scrollTo($this.parent().next().offset().top);
 });
 
 $('.prev').on('click', function(){
   let $this = $(this);
+  scrollTo($this.parent().prev().offset().top);
+});
 
+$('.canvas').on('click', function(){
+  let $this = $(this);
+  scrollTo($this.parent().offset().top);
+});
+
+/*Stop scroll tweening if scroll using the mouse wheel*/
+$window.on('mousewheel', function(){
   tween.stop();
-
-  tween.to( { scrollTo: $this.parent().prev().offset().top });
-  tween.start();
-
 });
 
 function init(){
+  let $container;
+  let $canvas;
 
-  //add COLORS
+  //add COLORS to each container
   COLORS.forEach(function(item, index){
 
     $($containers[index]).css('background', COLORS[index].toString());
@@ -96,8 +99,8 @@ function init(){
 
   $containers.each(function(index, item){
 
-    let $container = $(item);
-    let $canvas = $container.children('.canvas');
+    $container = $(item);
+    $canvas = $container.children('.canvas');
 
     $container.children('.prev, .next').css({
       background: `hsl(${COLORS[index].h},${COLORS[index].s + 20}%,${COLORS[index].l + 15}%)`
@@ -116,48 +119,49 @@ function init(){
 
 }
 
-$('.canvas').on('click', function(){
-
-  let $this = $(this);
-  tween.stop();
-
-  tween.to( { scrollTo: $this.parent().offset().top });
-  tween.start();
-
-});
-
 function updateParallax(){
 
   let scrollPosition = $window.scrollTop();
+  let $rects;
+  let $container;
+  let containerOffset;
+  let $canvas;
+  let height;
+  let percentage;
+  let halfPercentage;
+  let percentageInViewPort;
+  let floatPercentage;
+  let $prev;
+  let $next;
+  let $item;
 
   $containers.each(function(index, item){
 
-    let $container = $(item);
-    let offset = $container.offset();
-    let $rects;
-    let $canvas = $container.children('.canvas');
-    let height = $container.height();
-    let percentageinViewPort = Math.max(0, Math.min(100, ((offset.top + height) - scrollPosition) / (windowHeight + height) * 100));
+    $container = $(item);
+    containerOffset = $container.offset();
+    $canvas = $container.children('.canvas');
+    height = $container.height();
+    percentage = Math.max(0, Math.min(100, ((containerOffset.top + height) - scrollPosition) / (windowHeight + height) * 100));
 
-    let halfPercentage = percentageinViewPort - 50;
-    let per = (halfPercentage / 50) * 100;
+    halfPercentage = percentage - 50;
+    percentageInViewPort = (halfPercentage / 50) * 100;
+    floatPercentage = (percentageInViewPort / 100);
 
-    let $prev = $container.children('.prev');
-    let $next = $container.children('.next');
+    $prev = $container.children('.prev');
+    $next = $container.children('.next');
 
-    $prev.css('transform', `translate(-50%, ${-(per / 100) * 50 }px) rotate(-90deg)`);
-    $next.css('transform', `translate(-50%, ${-(per / 100) * 50 }px) rotate(-90deg)`);
+    $prev.css('transform', `translate(-50%, ${-floatPercentage * 50 }px) rotate(-90deg)`);
+    $next.css('transform', `translate(-50%, ${-floatPercentage * 50 }px) rotate(-90deg)`);
 
-    if(scrollPosition + windowHeight > offset.top &&  offset.top + $container.height() > scrollPosition){
+    if(scrollPosition + windowHeight > containerOffset.top &&  containerOffset.top + $container.height() > scrollPosition){
 
       $rects = $container.children('.rect');
-
-      $canvas.css('transform', `translate(0, ${(per / 100) * 400}px)`);
+      $canvas.css('transform', `translate(0, ${floatPercentage * 400}px)`);
 
       $rects.each(function(index, item){
 
-        let $item = $(item);
-        $item.css('transform', `translate(${(per / 100) * parseInt($item.data('pixels-to-travel-horizontal')) }px, ${(per / 100) * parseInt($item.data('pixels-to-travel-vertical')) }px)`);
+        $item = $(item);
+        $item.css('transform', `translate(${floatPercentage * parseInt($item.data('pixels-to-travel-horizontal')) }px, ${floatPercentage * parseInt($item.data('pixels-to-travel-vertical')) }px)`);
 
       });
 
@@ -165,7 +169,7 @@ function updateParallax(){
 
     if(scrollPosition + windowHeight > $canvas.offset().top &&  $canvas.offset().top + $canvas.height() > scrollPosition){
       canvasAnimations[index].onScreen = true;
-      canvasAnimations[index].scrollPosition = per;
+      canvasAnimations[index].scrollPosition = percentageInViewPort;
     } else {
       canvasAnimations[index].onScreen = false;
     }
@@ -173,10 +177,6 @@ function updateParallax(){
   });
 
 }
-
-$window.on('mousewheel', function(){
-  tween.stop();
-});
 
 $window.on('resize scroll load', updateParallax);
 
@@ -195,8 +195,5 @@ function update(){
 }
 
 requestAnimationFrame(update);
-
-
-
 
 init();

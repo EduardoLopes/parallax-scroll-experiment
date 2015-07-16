@@ -14,15 +14,13 @@ const random = new Random(Random.engines.mt19937().autoSeed());
   i might try a different approach on this soon
 */
 class RectFive extends Rect{
+
   constructor(index, animation){
-    super(0,0,10,10);
+    super(0, 0, 15);
 
     this.index = index;
     this.animation = animation;
-    this.size = 15;
-
     this.id = this.index % 4;
-
     this.angle = Math.floor(this.index / 4) * ((Math.PI * 2) / (QAUNT / 4));
 
   }
@@ -84,17 +82,6 @@ class RectFive extends Rect{
 
 export class AnimationFive extends Animation{
   constructor(){
-    super(ID);
-
-    for (let i = 0; i < QAUNT; i++) {
-      this.objects[i] = new RectFive(i, this);
-    };
-
-  }
-
-  draw(){
-    this.ctx.clearRect(0, 0, this.$canvas.width,  this.$canvas.height);
-    //draw all the rectangles
-    super.draw();
+    super(ID, RectFive, QAUNT);
   }
 }

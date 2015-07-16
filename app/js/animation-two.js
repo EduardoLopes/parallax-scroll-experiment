@@ -4,16 +4,14 @@ import {Rect} from "./rect";
 const ID = 1;
 const QAUNT = 20;
 
-const random = new Random(Random.engines.mt19937().autoSeed());
-
 class RectTwo extends Rect{
+
   constructor(index, animation){
-    super(0,0,10,10);
+    super(0, 0, 15);
 
     this.index = index;
     this.animation = animation;
     this.angle = this.index * ((Math.PI * 2) / QAUNT);
-    this.size = 15;
 
   }
 
@@ -52,17 +50,6 @@ class RectTwo extends Rect{
 
 export class AnimationTwo extends Animation{
   constructor(){
-    super(ID);
-
-    for (let i = 0; i < QAUNT; i++) {
-      this.objects[i] = new RectTwo(i, this);
-    };
-
-  }
-
-  draw(){
-    this.ctx.clearRect(0, 0, this.$canvas.width,  this.$canvas.height);
-    //draw all the rectangles
-    super.draw();
+    super(ID, RectTwo, QAUNT);
   }
 }

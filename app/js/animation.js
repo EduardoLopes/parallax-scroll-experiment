@@ -1,7 +1,8 @@
 import {COLORS} from "./colors";
 
 export class Animation{
-  constructor(id){
+
+  constructor(id, rectClass, quant){
     this.objects = [];
     this.onScreen = false;
     this.id = id;
@@ -13,6 +14,11 @@ export class Animation{
       x: this.$canvas.width / 2,
       y: this.$canvas.height / 2
     }
+
+    for (let i = 0; i < quant; i++) {
+      this.objects[i] = new rectClass(i, this);
+    };
+
   }
 
   update(){
@@ -22,6 +28,7 @@ export class Animation{
   }
 
   draw(){
+    this.ctx.clearRect(0, 0, this.$canvas.width,  this.$canvas.height);
     for (let i = 0; i < this.objects.length; i++) {
       this.objects[i].draw();
     }
