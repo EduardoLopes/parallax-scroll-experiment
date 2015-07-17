@@ -1,8 +1,8 @@
 # [Parallax Scroll](http://eduardolopes.github.io/parallax-scroll-experiment/)
 
-Parallax scroll, we are back in 2010?? no, wish we were back there with the same knowledge i have today. I have tried parallax in videos games before and in some of my canvas experimentes, but never tried to make a parallax scroll webpage!
+Parallax scroll, we are back in 2010?? no, wish we were back there with the same knowledge i have today. I have tried parallax in videos games before and in some of my canvas experiments, but never tried to make a parallax scroll webpage!
 
-There is lot's of plugins out there for that, but i didn't use any of it. The main goal is learn how to make it and don't be limited by the plugin's features!
+There is lot's of plugins out there to archive the parallax effect, but i didn't use any of it. The main goal is learn how to make it and don't be limited by the plugin's features!
 
 While programming this i realize (again), that it's possibe to extract numbers from anything and do crazy fun stuff with it. I think this is really really fun!
 
