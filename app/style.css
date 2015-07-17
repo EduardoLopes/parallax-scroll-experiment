@@ -59,6 +59,10 @@ h1{
   background: #eee;
 }
 
+.rect, canvas, .next, .prev{
+  will-change: transform;
+}
+
 canvas{
   z-index: 1;
 }
