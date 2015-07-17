@@ -135,6 +135,9 @@ function updateParallax(){
   let $next;
   let $item;
 
+  windowHeight = $window.height();
+  windowWidth = $window.width();
+
   $containers.each(function(index, item){
 
     $container = $(item);
